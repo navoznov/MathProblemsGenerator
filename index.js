@@ -5,19 +5,19 @@ function generate(mode) {
     if (!settingsElement) throw "No settings element";
 
 
-    const problemsElement = document.getElementById("problems");
-    if (!problemsElement) throw "No problems element"
+    const problemsTable = document.getElementById("problems");
+    if (!problemsTable) throw "No problems element"
 
     settingsElement.style.display = "none";
-    problemsElement.style.display = "block"
-    problemsElement.innerHTML = "";
+    problemsTable.style.display = "block"
+    problemsTable.innerHTML = "";
 
     const settings = getSettings();
 
     for (let i = 0; i < settings.count; i++) {
         const problem = generateProblem(settings);
-        const problemElement = generateProblemHtmlElement(problem, settings, mode);
-        problemsElement.appendChild(problemElement);
+        const problemElement = generateProblemRow(problem, settings, mode);
+        problemsTable.appendChild(problemElement);
     }
 }
 
@@ -55,21 +55,24 @@ function generateProblem(settings) {
     return {text, result};
 }
 
-function generateProblemHtmlElement(problem, settings, mode) {
-    const textElement = document.createElement(`span`);
-    textElement.innerText = problem.text;
+function generateProblemRow(problem, settings, mode) {
+    const textTd = document.createElement(`td`);
+    textTd.innerText = problem.text;
 
-    const problemElement = document.createElement(`div`);
-    problemElement.className = "problem";
-    problemElement.appendChild(textElement);
-
+    const row = document.createElement("tr");
+    row.className = "problem";
+    row.appendChild(textTd);
+    
     if (mode === "solve") {
-        const answerElement = document.createElement(`input`);
-        answerElement.className = "answer";
-        answerElement.setAttribute("answer", problem.result);
-        problemElement.appendChild(answerElement);
+        const answerInput = document.createElement(`input`);
+        answerInput.setAttribute("answer", problem.result);
+        const answerTd = document.createElement("td");
+        answerTd.className = "answer";
+        answerTd.appendChild(answerInput);
+        row.appendChild(answerTd);
     }
-    return problemElement;
+    
+    return row;
 }
 
 function calcResult(left, right, operator) {
