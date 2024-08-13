@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+
+</head>
+<body>
+<div id="settings">
+    <div>
+        <input id="count" type="text" value="10"/>
+        <label for="count">Problems count</label>
+    </div>
+    <div>
+        <input type="checkbox" title="Plus" id="usePlus">
+        <label for="usePlus">Use plus</label>
+
+    </div>
+    <div>
+        <input type="checkbox" title="Minus" id="useMinus"/>
+        <label for="useMinus">Use minus</label>
+    </div>
+
+    <div>
+        <input id="fontSize" type="text" value="16"/>
+        <label for="fontSize">Font size</label>
+    </div>
+    <div>
+        <input type="checkbox" title="Plus" id="outputLineNumbers">
+        <label for="outputLineNumbers">Line numbers</label>
+    </div>
+    <div>
+        <button onclick="generate('print')">Generate to print</button>
+        <button onclick="generate('solve')">Generate to solve</button>
+    </div>
+
+</div>
+<div id="problems">
+
+</div>
+</body>
+<script src="index.js"></script>
+
+<style>
+    .problem {
+        display: flex;
+    }
+
+    .problem > * {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .answer {
+        width: 20px;
+    }
+</style>
+</html>
