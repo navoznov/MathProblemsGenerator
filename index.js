@@ -16,21 +16,7 @@ function generate(mode) {
 
     for (let i = 0; i < settings.count; i++) {
         const problem = generateProblem(settings);
-
-        const textElement = document.createElement(`span`);
-        textElement.innerText = problem.text;
-
-        const problemElement = document.createElement(`div`);
-        problemElement.className = "problem";
-        problemElement.appendChild(textElement);
-
-        if (mode === "solve") {
-            const answerElement = document.createElement(`input`);
-            answerElement.className = "answer";
-            answerElement.setAttribute("answer", problem.result);
-            problemElement.appendChild(answerElement);
-        }
-
+        const problemElement = generateProblemHtmlElement(problem, settings, mode);
         problemsElement.appendChild(problemElement);
     }
 }
@@ -62,11 +48,28 @@ function generateProblem(settings) {
     if (operator === '-' && left < right) {
         [left, right] = [right, left];
     }
-    
+
     const text = `${left} ${operator} ${right} =    `;
     console.log(text);
     const result = calcResult(left, right, operator);
     return {text, result};
+}
+
+function generateProblemHtmlElement(problem, settings, mode) {
+    const textElement = document.createElement(`span`);
+    textElement.innerText = problem.text;
+
+    const problemElement = document.createElement(`div`);
+    problemElement.className = "problem";
+    problemElement.appendChild(textElement);
+
+    if (mode === "solve") {
+        const answerElement = document.createElement(`input`);
+        answerElement.className = "answer";
+        answerElement.setAttribute("answer", problem.result);
+        problemElement.appendChild(answerElement);
+    }
+    return problemElement;
 }
 
 function calcResult(left, right, operator) {
